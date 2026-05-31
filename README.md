@@ -90,7 +90,7 @@ Games_Classic/
 
 - [ ] Tetris — implementação completa
 - [ ] Snake — implementação completa
-- [ ] Breakout — implementação completa
+- [x] Breakout — implementação completa
 - [ ] Space Invaders — implementação completa
 - [ ] Pong — em desenvolvimento
 - [ ] Flappy Bird — em desenvolvimento
