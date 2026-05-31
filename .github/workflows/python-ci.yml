@@ -1,4 +1,4 @@
-name: Classic Games CI
+name: Classic Games
 
 on:
   push:
