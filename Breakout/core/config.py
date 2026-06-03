@@ -2,6 +2,7 @@ SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
 FPS           = 60
 TITLE         = "Breakout"
+TOTAL_LEVELS  = 5
 
 class Color:
     BLACK      = (0,   0,   0)
@@ -10,6 +11,9 @@ class Color:
     PADDLE     = (200, 200, 220)
     BALL       = (255, 220,  80)
     HUD_TEXT   = (180, 180, 200)
+    GOLD       = (255, 215,   0)
+    GREEN      = ( 60, 220,  80)
+    RED        = (220,  60,  60)
 
     BRICK_ROWS = [
         (220,  60,  60),
@@ -41,3 +45,35 @@ BRICK_OFFSET_LEFT = (SCREEN_WIDTH - BRICK_COLS * (BRICK_WIDTH + BRICK_PADDING) +
 BRICK_POINTS_BASE = 10
 
 LIVES_START = 3
+
+# Upgrades disponíveis na loja
+UPGRADES = [
+    {
+        "id": "wide_paddle",
+        "label": "Raquete Larga",
+        "desc": "+40px na largura da raquete",
+        "cost": 200,
+        "icon": "▬",
+    },
+    {
+        "id": "slow_ball",
+        "label": "Bola Lenta",
+        "desc": "Velocidade máx -20% neste nível",
+        "cost": 150,
+        "icon": "◉",
+    },
+    {
+        "id": "extra_life",
+        "label": "Vida Extra",
+        "desc": "+1 vida (máx 5)",
+        "cost": 300,
+        "icon": "♥",
+    },
+    {
+        "id": "score_boost",
+        "label": "Boost de Pontos",
+        "desc": "×2 pontos neste nível",
+        "cost": 250,
+        "icon": "★",
+    },
+]

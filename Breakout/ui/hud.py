@@ -10,17 +10,19 @@ class HUD:
         self._font_med = pygame.font.SysFont("monospace", 26, bold=True)
 
     def draw(self, surface: pygame.Surface, state: GameState,
-             score: int, lives: int, high_score: int) -> None:
-        self._draw_stats(surface, score, lives, high_score)
+             score: int, lives: int, high_score: int, level: int = 1) -> None:
+        self._draw_stats(surface, score, lives, high_score, level)
 
         if state == GameState.MENU:
-            self._draw_centered(surface, "BREAKOUT",  self._font_lg,  Color.BALL, -80)
+            self._draw_centered(surface, "BREAKOUT", self._font_lg, Color.BALL, -80)
             self._draw_centered(surface, "PRESSIONE ESPAÇO PARA JOGAR",
                                 self._font_med, Color.HUD_TEXT, 10)
+            self._draw_centered(surface, "H = Ranking   S = Configurações",
+                                self._font_sm, Color.GRAY, 55)
 
         elif state == GameState.PAUSED:
             self._draw_overlay(surface)
-            self._draw_centered(surface, "PAUSADO",  self._font_lg,  Color.BALL, -40)
+            self._draw_centered(surface, "PAUSADO", self._font_lg, Color.BALL, -40)
             self._draw_centered(surface, "ESPAÇO para continuar",
                                 self._font_med, Color.HUD_TEXT, 30)
 
@@ -29,8 +31,8 @@ class HUD:
             self._draw_centered(surface, "GAME OVER", self._font_lg, (220, 60, 60), -60)
             self._draw_centered(surface, f"Pontuação: {score}",
                                 self._font_med, Color.HUD_TEXT, 10)
-            self._draw_centered(surface, "ESPAÇO para reiniciar",
-                                self._font_sm, Color.HUD_TEXT, 50)
+            self._draw_centered(surface, "ESPAÇO para reiniciar   H = Ranking",
+                                self._font_sm, Color.HUD_TEXT, 55)
 
         elif state == GameState.VICTORY:
             self._draw_overlay(surface)
@@ -46,9 +48,9 @@ class HUD:
                                 y_absolute=True)
 
     def _draw_stats(self, surface: pygame.Surface,
-                    score: int, lives: int, high_score: int) -> None:
+                    score: int, lives: int, high_score: int, level: int) -> None:
         score_surf = self._font_sm.render(f"SCORE  {score:06d}", True, Color.HUD_TEXT)
-        hi_surf    = self._font_sm.render(f"BEST   {high_score:06d}", True, Color.HUD_TEXT)
+        hi_surf    = self._font_sm.render(f"NÍV {level:02d}  BEST {high_score:06d}", True, Color.HUD_TEXT)
         lives_surf = self._font_sm.render(f"VIDAS  {'♥ ' * lives}", True, (220, 80, 80))
 
         surface.blit(score_surf, (14, 8))
