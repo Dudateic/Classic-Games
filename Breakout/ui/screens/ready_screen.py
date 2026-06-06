@@ -50,5 +50,3 @@ class ReadyScreen:
             go_surf.set_alpha(int(255 * (1 - fraction)))
             surface.blit(go_surf, (cx - go_surf.get_width() // 2, cy - go_surf.get_height() // 2))
 
-        tip_surf = self._font_md.render("Use o mouse ou ← → para mover", True, Color.HUD_TEXT)
-        surface.blit(tip_surf, (cx - tip_surf.get_width() // 2, cy + 90))

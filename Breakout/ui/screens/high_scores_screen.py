@@ -27,7 +27,6 @@ class HighScoresScreen:
         cx = SCREEN_WIDTH  // 2
         cy = SCREEN_HEIGHT // 2
 
-        # Título
         t = self._font_lg.render("TOP 5  PONTUAÇÕES", True, Color.GOLD)
         surface.blit(t, (cx - t.get_width() // 2, 35))
         pygame.draw.line(surface, Color.GOLD, (cx - 220, 95), (cx + 220, 95), 2)
