@@ -95,5 +95,3 @@ class SettingsScreen:
             vs = self._font_sm.render(val_str, True, Color.GOLD if is_sel else Color.HUD_TEXT)
             surface.blit(vs, (rect.right - vs.get_width() - 20, rect.y + 18))
 
-        hint = self._font_xs.render("↑ ↓ selecionar   ← → alterar   ESC voltar", True, (100, 100, 120))
-        surface.blit(hint, (cx - hint.get_width() // 2, SCREEN_HEIGHT - 50))

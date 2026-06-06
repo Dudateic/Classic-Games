@@ -32,10 +32,9 @@ class SplashScreen:
         overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
 
         title_surf = self._font_title.render("BREAKOUT", True, Color.BALL)
-        sub_surf   = self._font_sub.render("presents", True, Color.HUD_TEXT)
+
 
         title_surf.set_alpha(alpha)
-        sub_surf.set_alpha(alpha)
 
         cx = SCREEN_WIDTH // 2
         cy = SCREEN_HEIGHT // 2
@@ -46,7 +45,6 @@ class SplashScreen:
                          (cx + line_w // 2, cy - 50), 2)
 
         surface.blit(title_surf, (cx - title_surf.get_width() // 2, cy - 20))
-        surface.blit(sub_surf,   (cx - sub_surf.get_width()  // 2, cy + 30))
 
         pygame.draw.line(surface, (*Color.BALL, alpha),
                          (cx - line_w // 2, cy + 55),

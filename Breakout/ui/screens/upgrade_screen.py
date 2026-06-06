@@ -108,6 +108,3 @@ class UpgradeScreen:
             text, color = self._message
             ms = self._font_sm.render(text, True, color)
             surface.blit(ms, (cx - ms.get_width() // 2, SCREEN_HEIGHT - 80))
-
-        hint = self._font_xs.render("↑ ↓ selecionar   ENTER comprar   ESPAÇO continuar", True, (100, 100, 120))
-        surface.blit(hint, (cx - hint.get_width() // 2, SCREEN_HEIGHT - 50))

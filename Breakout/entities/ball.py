@@ -14,7 +14,7 @@ class Ball:
         self.rect = pygame.Rect(0, 0, BALL_RADIUS * 2, BALL_RADIUS * 2)
         self._vx = 0.0
         self._vy = 0.0
-        self._active = False   # aguarda lançamento pelo jogador
+        self._active = False
 
     def reset(self, paddle_rect: pygame.Rect) -> None:
         self._speed  = BALL_SPEED_INIT
@@ -48,12 +48,10 @@ class Ball:
             self.rect.right = SCREEN_WIDTH
             self._vx = -abs(self._vx)
 
-        # Teto
         if self.rect.top <= 0:
             self.rect.top = 0
             self._vy = abs(self._vy)
 
-        # Paddle
         if self.rect.colliderect(paddle_rect) and self._vy > 0:
             self._reflect_off_paddle(paddle_rect)
 
@@ -65,7 +63,7 @@ class Ball:
     def _reflect_off_paddle(self, paddle_rect: pygame.Rect) -> None:
 
         relative = (self.rect.centerx - paddle_rect.left) / paddle_rect.width  # [0, 1]
-        angle_deg = 20 + (relative * 140)   # 20° 160°
+        angle_deg = 20 + (relative * 140)
         angle_rad = math.radians(angle_deg)
 
         self._vx = self._speed * math.cos(math.radians(angle_deg - 90))
