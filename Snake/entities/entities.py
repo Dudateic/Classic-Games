@@ -37,8 +37,6 @@ class Cobra:
         ny = (hy + dy * C.TAMANHO_CELULA) % C.ALTURA
         nova_cabeca = (nx, ny)
 
-        # Se não está crescendo, a cauda vai sair nesse passo,
-        # então não conta como obstáculo na detecção de colisão.
         corpo_colisao = self.corpo if self.crescimento > 0 else self.corpo[:-1]
         if nova_cabeca in corpo_colisao:
             self.viva = False
@@ -68,9 +66,9 @@ class Cobra:
 
 @dataclass
 class Fruta:
-    tipo: FruitType
-    pos:  tuple[int, int]
-    cor:  tuple[int, int, int]
+    tipo:  FruitType
+    pos:   tuple[int, int]
+    cor:   tuple[int, int, int]
     pulso: float = 0.0
 
     def atualizar(self) -> None:
@@ -86,28 +84,24 @@ def gerar_fruta(tipo: FruitType, cobra: Cobra, frutas: list[Fruta]) -> Fruta:
         x = random.randint(0, COLS - 1) * C.TAMANHO_CELULA
         y = random.randint(0, ROWS - 1) * C.TAMANHO_CELULA
         if (x, y) not in posicoes_ocupadas:
-            cor = _cor_fruta(tipo)
-            return Fruta(tipo=tipo, pos=(x, y), cor=cor)
+            return Fruta(tipo=tipo, pos=(x, y), cor=_cor_fruta(tipo))
 
 
 def _cor_fruta(tipo: FruitType) -> tuple[int, int, int]:
-    if tipo == "bom":
-        return random.choice(C.COR_FRUTA_BOA)
-    if tipo == "ruim":
-        return C.COR_FRUTA_RUIM
-    if tipo == "boost":
-        return C.COR_FRUTA_BOOST
+    if tipo == "bom":   return random.choice(C.COR_FRUTA_BOA)
+    if tipo == "ruim":  return C.COR_FRUTA_RUIM
+    if tipo == "boost": return C.COR_FRUTA_BOOST
     return C.COR_FRUTA_OURO
 
 
 @dataclass
 class Particula:
-    x:      float
-    y:      float
-    vx:     float
-    vy:     float
-    cor:    tuple[int, int, int]
-    vida:   int = C.PARTICULA_VIDA
+    x:        float
+    y:        float
+    vx:       float
+    vy:       float
+    cor:      tuple[int, int, int]
+    vida:     int = C.PARTICULA_VIDA
     vida_max: int = C.PARTICULA_VIDA
 
     def atualizar(self) -> None:
@@ -130,7 +124,8 @@ class Particula:
         return max(1.0, 4.0 * (self.vida / self.vida_max))
 
 
-def criar_particulas(pos: tuple[int, int], cores: list, n: int = C.PARTICULAS_POR_FRUTA) -> list[Particula]:
+def criar_particulas(pos: tuple[int, int], cores: list,
+                     n: int = C.PARTICULAS_POR_FRUTA) -> list[Particula]:
     cx = pos[0] + C.TAMANHO_CELULA / 2
     cy = pos[1] + C.TAMANHO_CELULA / 2
     particulas = []

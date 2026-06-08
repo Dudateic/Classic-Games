@@ -4,13 +4,18 @@ import config.config as C
 from entities.entities import Cobra, Fruta, Particula, gerar_fruta, criar_particulas
 from engine.game_state import EstadoJogo, salvar_entrada_ranking, carregar_ranking
 from engine.input_handler import processar_eventos
-from render.renderer import (
-    desenhar_grade, desenhar_cobra, desenhar_frutas,
-    desenhar_particulas, desenhar_hud,
-    tela_inicio, tela_pause, tela_game_over,
-    tela_digitar_nome, tela_ranking,
-)
 
+import render.fontes as Fontes
+import render.particulas_menu as ParticulasMenu
+
+from render.tela_menu import TelaMenu
+from render.tela_pausa import TelaPausa
+from render.tela_game_over import TelaGameOver
+from render.tela_nome import TelaNome
+from render.tela_ranking import TelaRanking 
+from render.jogo import desenhar_tudo as desenhar_grade
+
+import render.hub as Hud 
 
 def main():
     pygame.init()
@@ -36,12 +41,20 @@ def main():
         tela_real.blit(scaled, (offset_x, offset_y))
         pygame.display.flip()
 
+    Fontes.init()
+
+    menu_manager = TelaMenu(Fontes, ParticulasMenu)
+    game_over_manager = TelaGameOver(Fontes, ParticulasMenu)
+    nome_manager = TelaNome(Fontes, ParticulasMenu)
+    ranking_manager = TelaRanking(Fontes, ParticulasMenu) 
+    pausa_manager = TelaPausa(Fontes)
+
     proxima = "MENU"
     nome_jogador = ""
 
     while True:
         if proxima == "MENU":
-            acao = tela_inicio(surf, clock, flip)
+            acao = menu_manager.executar(surf, clock, flip)
             if acao == "SAIR":
                 pygame.quit(); sys.exit()
             elif acao == "RANKING":
@@ -61,7 +74,7 @@ def main():
                 if acao == "PAUSAR":
                     _render(surf, estado, frame)
                     flip()
-                    tela_pause(surf, clock, flip)
+                    pausa_manager.executar(surf, clock, flip)
 
                 estado.tick()
                 _render(surf, estado, frame)
@@ -69,10 +82,10 @@ def main():
 
             nome_jogador = ""
             if estado.pontuacao > 0:
-                nome_jogador = tela_digitar_nome(surf, clock, flip, estado.pontuacao)
+                nome_jogador = nome_manager.executar(surf, clock, flip, estado.pontuacao)
                 salvar_entrada_ranking(nome_jogador, estado.pontuacao, estado.nivel)
 
-            resultado = tela_game_over(
+            resultado = game_over_manager.executar(
                 surf, clock, flip,
                 estado.pontuacao, estado.highscore, estado.nivel,
                 nome_jogador
@@ -87,20 +100,15 @@ def main():
 
         elif proxima == "RANKING":
             ranking = carregar_ranking()
-            resultado = tela_ranking(surf, clock, flip, ranking, destaque_nome=nome_jogador)
+            resultado = ranking_manager.executar(surf, clock, flip, ranking, destaque_nome=nome_jogador)
             if resultado == "JOGAR":
                 proxima = "JOGAR"
             else:
                 proxima = "MENU"
 
-
 def _render(surf, estado, frame):
-    desenhar_grade(surf, frame)
-    desenhar_particulas(surf, estado.particulas)
-    desenhar_frutas(surf, estado.frutas)
-    desenhar_cobra(surf, estado.cobra, estado.boost_ativo, frame)
-    desenhar_hud(surf, estado, frame)
-
+    desenhar_grade(surf, estado, frame)
+    Hud.desenhar(surf, estado, frame)
 
 if __name__ == "__main__":
     main()
