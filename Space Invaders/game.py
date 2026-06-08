@@ -11,7 +11,6 @@ Everything else lives in its own module.
 
 import pygame
 
-from entities import Player, Spell, EnemyShot
 from core import (
     PhaseManager, Score, Ranking,
     check_spell_enemy, check_enemy_shot_player,
@@ -19,6 +18,10 @@ from core import (
     spawn_enemy, maybe_spawn_shot, maybe_spawn_powerup,
     SPAWN_INTERVAL,
 )
+from entities.player import Player
+from entities.spell import Spell
+from entities.enemy_shot import EnemyShot
+
 from ui import (
     HUD, MenuScreen,
     make_starfield, make_menu_ships,

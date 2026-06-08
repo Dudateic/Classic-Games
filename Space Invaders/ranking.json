@@ -1,7 +1,12 @@
 [
   {
-    "name": "duda",
-    "score": 0,
-    "date": "2026-05-24 22:28"
+    "nome": "DUDA",
+    "pontuacao": 14,
+    "nivel": 2
+  },
+  {
+    "nome": "???",
+    "pontuacao": 0,
+    "nivel": 1
   }
 ]
