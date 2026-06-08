@@ -89,9 +89,9 @@ Games_Classic/
 ## 06 · Roadmap
 
 - [ ] Tetris — implementação completa
-- [ ] Snake — implementação completa
+- [x] Snake — implementação completa
 - [x] Breakout — implementação completa
-- [ ] Space Invaders — implementação completa
+- [x] Space Invaders — implementação completa
 - [ ] Pong — em desenvolvimento
 - [ ] Flappy Bird — em desenvolvimento
 - [ ] Minesweeper  — em desenvolvimento
