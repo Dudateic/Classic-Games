@@ -9,23 +9,37 @@ from entities.entities import Cobra, Fruta, Particula, gerar_fruta, criar_partic
 
 def carregar_highscore() -> int:
     ranking = carregar_ranking()
-    if ranking:
-        return ranking[0]["pontuacao"]
-    return 0
+    if not ranking:
+        return 0
+
+    return max(
+        (item.get("pontuacao", 0) for item in ranking),
+        default=0
+    )
 
 
 def carregar_ranking() -> list[dict]:
-    """Lê ranking.json e retorna lista ordenada por pontuação."""
     if os.path.exists(C.ARQUIVO_RANKING):
         try:
             with open(C.ARQUIVO_RANKING, "r", encoding="utf-8") as f:
                 dados = json.load(f)
+
             if isinstance(dados, list):
-                return dados
+                ranking = []
+                for d in dados:
+                    ranking.append({
+                        "nome": d.get("nome", "???"),
+                        "pontuacao": d.get("pontuacao",
+                                       d.get("score",
+                                       d.get("pontos", 0))),
+                        "nivel": d.get("nivel", 1),
+                    })
+                return ranking
+
         except (ValueError, IOError, json.JSONDecodeError):
             pass
-    return []
 
+    return []
 
 def salvar_entrada_ranking(nome: str, pontuacao: int, nivel: int) -> list[dict]:
     """Adiciona entrada ao ranking, mantém top-20, retorna ranking atualizado."""

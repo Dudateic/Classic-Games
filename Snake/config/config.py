@@ -26,7 +26,7 @@ CHANCE_FRUTA_OURO = 0.08
 PARTICULAS_POR_FRUTA = 12
 PARTICULA_VIDA       = 30
 
-ARQUIVO_RANKING   = "./Snake/ranking.json"
+ARQUIVO_RANKING   = "ranking.json"
 
 COR_FUNDO        = (0,   0,   0)
 COR_GRADE        = (20,  20,  20)

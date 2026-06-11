@@ -81,7 +81,7 @@ def main():
                 flip()
 
             nome_jogador = ""
-            if estado.pontuacao > 0:
+            if estado.pontuacao >= 0:
                 nome_jogador = nome_manager.executar(surf, clock, flip, estado.pontuacao)
                 salvar_entrada_ranking(nome_jogador, estado.pontuacao, estado.nivel)
 
